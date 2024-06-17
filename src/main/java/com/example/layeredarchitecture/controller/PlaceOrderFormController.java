@@ -1,7 +1,9 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.Dao.*;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.Dao.Custom.*;
+import com.example.layeredarchitecture.Dao.Custom.Impl.CustomerDaoImpl;
+import com.example.layeredarchitecture.Dao.Custom.Impl.ItemDaoImpl;
+import com.example.layeredarchitecture.Dao.Custom.Impl.OrderDaoImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -177,23 +179,23 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
         //ItemDaoImpl itemDao = new ItemDaoImpl();
-        return itemDao.exitItem(code);
+        return itemDao.Exit(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        return customerDao.ExitCustomer(id);
+        return customerDao.Exit(id);
     }
 
-    public String generateNewOrderId() {
+    public String generateNewOrderId() throws SQLException, ClassNotFoundException {
         //OrderDaoImpl orderDao = new OrderDaoImpl();
-       return orderDao.genarateNextOrderId();
+       return orderDao.GenarateNextID();
     }
 ObservableList<String> st = FXCollections.observableArrayList();
     private void loadAllCustomerIds() {
         try {
         //    CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            List<String> list = customerDao.loadAllCustomerIds();
+            List<String> list = customerDao.loadAllIds();
             for (String s : list ){
                st.add(s);
             }
@@ -209,7 +211,7 @@ ObservableList<String> sti = FXCollections.observableArrayList();
         try {
             /*Get all items*/
           //  ItemDaoImpl itemDao = new ItemDaoImpl();
-            List<String> list = itemDao.loadAllItems();
+            List<String> list = itemDao.loadAllIds();
             for (String s : list){
              sti.add(s);
             }
@@ -287,7 +289,7 @@ ObservableList<String> sti = FXCollections.observableArrayList();
     public void txtQty_OnAction(ActionEvent actionEvent) {
     }
 
-    public void btnPlaceOrder_OnAction(ActionEvent actionEvent) {
+    public void btnPlaceOrder_OnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         boolean b = saveOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
                 tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 

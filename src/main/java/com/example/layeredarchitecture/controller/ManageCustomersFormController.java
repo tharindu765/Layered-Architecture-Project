@@ -1,8 +1,8 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.Dao.CustomerDao;
-import com.example.layeredarchitecture.Dao.CustomerDaoImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.Dao.Custom.CustomerDao;
+import com.example.layeredarchitecture.Dao.Custom.Impl.CustomerDaoImpl;
+import com.example.layeredarchitecture.bo.CustomerBoImpl;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -40,7 +40,8 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
-    CustomerDao customerDao = new CustomerDaoImpl();
+    //CustomerDao customerDao = new CustomerDaoImpl();
+    CustomerBoImpl customerBo = new CustomerBoImpl();
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -73,7 +74,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
             //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            List<CustomerTM> customerTMS = customerDao.loadAllCustomers();
+            List<CustomerTM> customerTMS = customerBo.loadAll();
             for (CustomerTM c : customerTMS) {
                 or.add(c);
             }
@@ -148,7 +149,7 @@ public class ManageCustomersFormController {
                 }
                 //CustomerDaoImpl customerDao = new CustomerDaoImpl();
                 CustomerTM customerTM = new CustomerTM(id, name, address);
-                customerDao.Save(customerTM);
+                customerBo.Save(customerTM);
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to save the customer " + e.getMessage()).show();
@@ -165,7 +166,7 @@ public class ManageCustomersFormController {
                 }
                 //CustomerDaoImpl customerDao = new CustomerDaoImpl();
                 CustomerTM customerTM = new CustomerTM(id, name, address);
-                customerDao.Update(customerTM);
+                customerBo.Update(customerTM);
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
             } catch (ClassNotFoundException e) {
@@ -184,7 +185,7 @@ public class ManageCustomersFormController {
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        return customerDao.ExitCustomer(id);
+        return customerDao.Exit(id);
     }
 
 

@@ -1,8 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.Dao.ItemDao;
-import com.example.layeredarchitecture.Dao.ItemDaoImpl;
-import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.Dao.Custom.ItemDao;
+import com.example.layeredarchitecture.Dao.Custom.Impl.ItemDaoImpl;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -75,7 +74,7 @@ ObservableList<ItemTM> or = FXCollections.observableArrayList();
         try {
             /*Get all items*/
             //ItemDaoImpl itemDao = new ItemDaoImpl();
-            List<ItemTM> itemTMS = itemDao.loadAllItem();
+            List<ItemTM> itemTMS = itemDao.loadAll();
             for (ItemTM i : itemTMS){
                 or.add(i);
             }
@@ -136,7 +135,7 @@ ObservableList<ItemTM> or = FXCollections.observableArrayList();
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
             //ItemDaoImpl itemDao = new ItemDaoImpl();
-            itemDao.delete(code);
+            itemDao.Delete(code);
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
             initUI();
@@ -177,7 +176,7 @@ ObservableList<ItemTM> or = FXCollections.observableArrayList();
                 //Save Item
                 //ItemDaoImpl itemDao = new ItemDaoImpl();
                 ItemTM itemTM = new ItemTM(code, description, unitPrice, qtyOnHand);
-                itemDao.save(itemTM);
+                itemDao.Save(itemTM);
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
             } catch (SQLException e) {
@@ -194,7 +193,7 @@ ObservableList<ItemTM> or = FXCollections.observableArrayList();
                 /*Update Item*/
                 //ItemDaoImpl itemDao = new ItemDaoImpl();
                 ItemTM itemTM = new ItemTM(code, description, unitPrice, qtyOnHand);
-                itemDao.update(itemTM);
+                itemDao.Update(itemTM);
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
                 selectedItem.setQtyOnHand(qtyOnHand);
@@ -213,14 +212,14 @@ ObservableList<ItemTM> or = FXCollections.observableArrayList();
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
        //ItemDaoImpl itemDao = new ItemDaoImpl();
-       return itemDao.exitItem(code);
+       return itemDao.Exit(code);
     }
 
 
     private String generateNewId() {
         try {
             //ItemDaoImpl itemDao = new ItemDaoImpl();
-            return itemDao.genarateNextId();
+            return itemDao.GenarateNextID();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
