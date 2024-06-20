@@ -185,7 +185,7 @@ public class ManageCustomersFormController {
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-        return customerDao.Exit(id);
+        return customerBo.Exit(id);
     }
 
 
@@ -197,7 +197,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
           //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            customerDao.Delete(id);
+            customerBo.Delete(id);
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
             initUI();
@@ -212,7 +212,7 @@ public class ManageCustomersFormController {
     private String generateNewId() {
         try {
             //CustomerDaoImpl customerDao = new CustomerDaoImpl();
-            return customerDao.GenarateNextID();
+            return customerBo.GenarateNextID();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
         } catch (ClassNotFoundException e) {
