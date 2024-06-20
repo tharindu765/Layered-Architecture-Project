@@ -1,12 +1,7 @@
-package com.example.layeredarchitecture.bo;
+package com.example.layeredarchitecture.bo.Impl;
 
-import com.example.layeredarchitecture.Dao.Custom.Impl.ItemDaoImpl;
-import com.example.layeredarchitecture.Dao.Custom.ItemDao;
-import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 

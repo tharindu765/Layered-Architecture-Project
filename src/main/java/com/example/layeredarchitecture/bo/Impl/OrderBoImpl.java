@@ -1,9 +1,6 @@
-package com.example.layeredarchitecture.bo;
+package com.example.layeredarchitecture.bo.Impl;
 
-import com.example.layeredarchitecture.Dao.Custom.Impl.OrderDetailDaoImpl;
-import com.example.layeredarchitecture.Dao.Custom.OrderDetailDao;
 import com.example.layeredarchitecture.Dao.SQLUtil;
-import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 import com.example.layeredarchitecture.view.tdm.OrderTM;
 import javafx.scene.control.Alert;
