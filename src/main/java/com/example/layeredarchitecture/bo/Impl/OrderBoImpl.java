@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.bo.Impl;
 
 import com.example.layeredarchitecture.Dao.SQLUtil;
+import com.example.layeredarchitecture.bo.OrderBo;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 import com.example.layeredarchitecture.view.tdm.OrderTM;
 import javafx.scene.control.Alert;
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public class OrderBoImpl {
+public class OrderBoImpl implements OrderBo {
     public List<OrderTM> loadAll() throws SQLException, ClassNotFoundException {
         return null;
     }

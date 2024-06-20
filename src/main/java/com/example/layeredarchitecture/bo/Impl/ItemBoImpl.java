@@ -3,6 +3,7 @@ package com.example.layeredarchitecture.bo.Impl;
 import com.example.layeredarchitecture.Dao.Custom.Impl.ItemDaoImpl;
 import com.example.layeredarchitecture.Dao.Custom.ItemDao;
 import com.example.layeredarchitecture.Dao.SQLUtil;
+import com.example.layeredarchitecture.bo.ItemBo;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemBoImpl {
+public class ItemBoImpl implements ItemBo{
     public List<ItemTM> loadAll() throws SQLException, ClassNotFoundException {
         ItemDao itemDao = new ItemDaoImpl();
         return itemDao.loadAll();
